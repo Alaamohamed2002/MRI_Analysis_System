@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Patient - MRI System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <i class="fas fa-hospital-symbol"></i>
+                <h1>MRI System</h1>
+            </div>
+            <div class="header-right">
+                <div class="settings-dropdown">
+                    <button class="settings-btn">
+                        <i class="fas fa-gear"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="theme-toggle">
+                            <label for="darkMode">Dark Mode</label>
+                            <input type="checkbox" id="darkMode">
+                        </div>
+                        <button id="logoutBtn" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <a href="{% url 'logout'%}"> Logout</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="page-header">
+                <a href="{% url 'Admin_dashboard' %}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <h2>Sign Up Patient</h2>
+            </div>
+
+            <div class="content-card">
+                <form id="signupForm" class="signup-form" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="patientName">UserName</label>
+                        <div class="input-with-icon">
+                            <input type="text" id="patientName" name="UserName" required 
+                                   placeholder="Enter patient's Username">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientAge">National ID</label>
+                        <div class="input-with-icon">
+                            <input type="number"  name="National_id" required 
+                                    placeholder="Enter patient's National_id">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="patientName">Full Name</label>
+                        <div class="input-with-icon">
+                            <input type="text" id="patientName" name="Name" required 
+                                   placeholder="Enter patient's full name">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="patientAge">Age</label>
+                        <div class="input-with-icon">
+                            <input type="number" id="patientAge" name="Age" required 
+                                   min="0" max="120" placeholder="Enter patient's age">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="patientGender">Gender</label>
+                        <div class="gender-select">
+                            <label class="gender-option gender-option--male">
+                                <input type="radio" name="Gender" value="male" required>
+                                <span class="gender-icon"><i class="fas fa-mars"></i></span>
+                                <span class="gender-label">Male</span>
+                            </label>
+                            <label class="gender-option gender-option--female">
+                                <input type="radio" name="Gender" value="female" required>
+                                <span class="gender-icon"><i class="fas fa-venus"></i></span>
+                                <span class="gender-label">Female</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="patientEmail">Email</label>
+                        <div class="input-with-icon">
+                            <input type="email" id="Email" name="Email" required 
+                                   placeholder="Enter patient's email">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="patientPhone">Phone Number</label>
+                        <div class="input-with-icon">
+                            <input type="tel" id="patientPhone" name="Phone" required 
+                                   placeholder="Enter patient's phone number">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Register Patient
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script src="{% static 'js/signup-patient.js'%}"></script>
+</body>
+</html> 

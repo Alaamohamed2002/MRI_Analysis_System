@@ -1,0 +1,67 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptionist Dashboard - MRI System</title>
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <i class="fas fa-brain"></i>
+                <h1>MRI System</h1>
+            </div>
+            <div class="header-right">
+                <div class="settings-dropdown">
+                    <button class="settings-btn">
+                        <i class="fas fa-gear"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="theme-toggle">
+                            <label for="darkMode">Dark Mode</label>
+                            <input type="checkbox" id="darkMode">
+                        </div>
+                        <button id="logoutBtn" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <a href="{% url 'logout'%}"> Logout</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="welcome-section">
+                <h2>Welcome, <span id="staffName">Receptionist</span></h2>
+                <p>Please select an action below</p>
+            </div>
+
+            <div class="action-cards">
+                <a href="{%url 'signup'  %}" class="action-card">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>Sign Up Patient</h3>
+                    <p>Register new patients in the system</p>
+                </a>
+                
+                <a href="{% url 'patient_data'%}" class="action-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Show Patient Data</h3>
+                    <p>View and search patient records</p>
+                </a>
+
+                <a href="{% url 'contact_dev'%}" class="action-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Contact Developer</h3>
+                    <p>Report issues or request features</p>
+                </a>
+            </div>
+        </main>
+    </div>
+    <script src="{% static 'js/receptionist.js'%}"></script>
+</body>
+</html> 

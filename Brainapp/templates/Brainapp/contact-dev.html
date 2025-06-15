@@ -1,0 +1,99 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Developer - MRI System</title>
+    <link rel="stylesheet" href="{%  static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <i class="fas fa-brain"></i>
+                <h1>MRI System</h1>
+            </div>
+            <div class="header-right">
+                <div class="settings-dropdown">
+                    <button class="settings-btn">
+                        <i class="fas fa-gear"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="theme-toggle">
+                            <label for="darkMode">Dark Mode</label>
+                            <input type="checkbox" id="darkMode">
+                        </div>
+                        <button id="logoutBtn" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                           <a href="{% url 'logout'%}"> Logout</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="page-header">
+                <a href="#" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <h2>Contact Developer</h2>
+            </div>
+
+            <div class="content-card">
+                <form id="contactForm" class="contact-form" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="staffId">Staff ID</label>
+                        <input type="text" id="staffId" name="staffId"  value="{{ request.user.national_id }}" readonly >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueType">Issue Type</label>
+                        <select id="issueType" name="issueType" required>
+                            <option value="">Select issue type</option>
+                            <option value="Bug Report">Bug Report</option>
+                            <option value="Feature Request">Feature Request</option>
+                            <option value="System Imporvment">System Imporvment</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueTitle">Issue Title</label>
+                        <input type="text" id="issueTitle" name="issueTitle" required 
+                               placeholder="Brief description of the issue">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueDescription">Issue Description</label>
+                        <textarea id="issueDescription" name="issueDescription" required 
+                                  placeholder="Please provide detailed information about the issue"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority Level</label>
+                        <select id="priority" name="priority_level" required>
+                            <option value="">Select priority</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Issue
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script src="{% static 'js/contact-dev.js'%}"></script>
+</body>
+</html> 

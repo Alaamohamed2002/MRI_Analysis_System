@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRI Analysis - MRI System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <i class="fas fa-brain"></i>
+                <h1>MRI System</h1>
+            </div>
+            <div class="header-right">
+                <div class="settings-dropdown">
+                    <button class="settings-btn">
+                        <i class="fas fa-gear"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="theme-toggle">
+                            <label for="darkMode">Dark Mode</label>
+                            <input type="checkbox" id="darkMode">
+                        </div>
+                        < id="logoutBtn" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="page-header">
+                <a href="{% url 'Doctor_dashboard' %}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <h2>MRI Analysis</h2>
+            </div>
+
+            <div class="content-card">
+                <form id="mriAnalysisForm" class="analysis-form" enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="patientId">Patient ID</label>
+                        <input type="text" id="patientId" name="national_id" required 
+                               placeholder="Enter patient ID">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mriImage">Upload MRI Image</label>
+                        <div class="file-upload">
+                            <input type="file" id="mriImage" name="mriImage" accept="image/*" required>
+                            <label for="mriImage" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Choose File</span>
+                            </label>
+                            <span class="file-name">No file chosen</span>
+                        </div>
+                    </div>
+
+                    <div id="imagePreview" class="image-preview" style="display: none;">
+                        <img id="previewImg" src="" alt="MRI Preview">
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-brain"></i>
+                        Analyze MRI
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script src="{% static 'js/mri-analysis.js'%}"></script>
+</body>
+</html> 
