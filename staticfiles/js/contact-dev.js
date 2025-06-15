@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backBtn) {
         backBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // if (staffId.startsWith('D')) {
-            //     window.location.href = 'doctor-home.html';
-            // } else {
-            //     window.location.href = 'receptionist-home.html';
-            // }
+            if (User.role=='doctor') {
+                window.location.href = '{% url "Doctor_dashboard"%}';
+            } else {
+                window.location.href = '{% url "Admin_dashboard"%}';
+            }
         });
     }
 

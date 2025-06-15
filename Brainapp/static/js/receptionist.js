@@ -31,18 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Logout functionality
-    // document.getElementById('logoutBtn').addEventListener('click', () => {
-    //     sessionStorage.clear();
-    //     window.location.href = 'index.html';
-    // });
+   // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.href = '/';
+    });
 
     // Handle back button navigation
-    // const backBtn = document.getElementById('backBtn');
-    // if (backBtn) {
-    //     backBtn.addEventListener('click', (e) => {
-    //         e.preventDefault();
-    //         window.location.href = 'receptionist-home.html';
-    //     });
-    // }
+    const backBtn = document.getElementById('backBtn');
+    if (backBtn) {
+        backBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'receptionist-home.html';
+        });
+    }
 }); 

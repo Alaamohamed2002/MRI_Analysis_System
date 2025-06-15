@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Logout functionality
-    // document.getElementById('logoutBtn').addEventListener('click', () => {
-    //     sessionStorage.clear();
-    //     window.location.href = 'index.html';
-    // });
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.href = '/';
+    });
 }); 

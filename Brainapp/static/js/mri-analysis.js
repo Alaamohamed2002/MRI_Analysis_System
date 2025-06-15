@@ -56,26 +56,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Form submission
-    //     const form = document.getElementById('mriAnalysisForm');
-    //     form.addEventListener('submit', (e) => {
-    //         // e.preventDefault();
+        const form = document.getElementById('mriAnalysisForm');
+        form.addEventListener('submit', (e) => {
+            // e.preventDefault();
         
-    //         const patientId = document.getElementById('patientId').value;
-    //         const file = mriImage.files[0];
+            const patientId = document.getElementById('patientId').value;
+            const file = mriImage.files[0];
         
-    //         if (!patientId || !file) {
-    //             showAlert('Please fill in all fields', 'error');
-    //             return;
-    //         }
+            if (!patientId || !file) {
+                showAlert('Please fill in all fields', 'error');
+                return;
+            }
 
-    //         // Here you would typically send the data to your backend
-    //         // For now, we'll just show a success message
-    //         showAlert('MRI image uploaded successfully!', 'success');
-    //         form.reset();
-    //         imagePreview.style.display = 'none';
-    //         fileName.textContent = 'No file chosen';
-    //     });
-    // });
+            // Here you would typically send the data to your backend
+            // For now, we'll just show a success message
+            showAlert('MRI image uploaded successfully!', 'success');
+            form.reset();
+            imagePreview.style.display = 'none';
+            fileName.textContent = 'No file chosen';
+        });
+    });
 
     function showAlert(message, type) {
         const alertDiv = document.createElement('div');
@@ -91,4 +91,3 @@ document.addEventListener('DOMContentLoaded', () => {
             alertDiv.remove();
         }, 3000);
     }
-})

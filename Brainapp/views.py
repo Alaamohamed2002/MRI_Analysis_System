@@ -131,6 +131,7 @@ def mri_analysis(request):
     return render (request ,'Brainapp/mri-analysis.html',context )
 
 def patient_data(request):
+    
     patients = Patient.objects.all()
     selected_patient = None
 
