@@ -19,9 +19,6 @@
     python -m venv env
     env\Scripts\activate
 
-### 2. Change to Project Directory
-    cd BrainProject
-
 ### 3. Install Dependencies
     pip install django
     pip install pillow
