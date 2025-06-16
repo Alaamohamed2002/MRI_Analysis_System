@@ -25,7 +25,11 @@ def signup(request):
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email already exists.')
             return redirect('signup')
-
+        
+        if User.objects.filter(national_id=national_id).exists():
+            messages.error(request, 'National ID already exists.')
+            return redirect('signup')
+        
         try:
             with transaction.atomic():
                 user = User.objects.create_user(
@@ -143,10 +147,10 @@ def patient_data(request):
         national_id = request.POST.get('national_id')
         if national_id:
             try:
-                user = User.objects.get(national_id=national_id, role='patient')
+                user = User.objects.get(national_id=national_id)
                 selected_patient = Patient.objects.get(user=user)
             except User.DoesNotExist:
-                messages.error(request, "No patient with this National ID.")
+                messages.error(request, "No user with this National ID.")
             except Patient.DoesNotExist:
                 messages.error(request, "This user is not registered as a patient.")
 

@@ -42,12 +42,12 @@
                     Back to Dashboard
                 </a> -->
                 {% if user.role == 'admin' %}
-                <a href="{% url 'Admin_dashboard' %}" >
+                <a href="{% url 'Admin_dashboard' %}" class="admin-link" >
                     <i class="fas fa-arrow-left"></i>
                     Back to Dashboard
                 </a>
             {% else %}
-                <a href="{% url 'Doctor_dashboard' %}" >
+                <a href="{% url 'Doctor_dashboard' %}" class="admin-link">
                     <i class="fas fa-arrow-left"></i>
                     Back to Dashboard
                 </a>

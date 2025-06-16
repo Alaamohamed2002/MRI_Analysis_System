@@ -35,6 +35,15 @@ body {
     line-height: 1.6;
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
+.admin-link {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .admin-link:hover,
+  .admin-link:active {
+    color: #00a896;
+  }  
 
 /* Main container for login page */
 .container {
