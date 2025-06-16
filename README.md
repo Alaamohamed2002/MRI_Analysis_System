@@ -19,19 +19,19 @@
     python -m venv env
     env\Scripts\activate
 
-### 3. Install Dependencies
+### 2. Install Dependencies
     pip install django
     pip install pillow
     pip install django-extensions
 
-### 4. Run Migrations
+### 3. Run Migrations
     python manage.py makemigrations
     python manage.py migrate
 
-### 5. Create Superuser (optional)
+### 4. Create Superuser (optional)
     python manage.py createsuperuser
 
-### 6. Run Development Server
+### 5. Run Development Server
     python manage.py runserver
 
 Visit the app at: http://127.0.0.1:8000
