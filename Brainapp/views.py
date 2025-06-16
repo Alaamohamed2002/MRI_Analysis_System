@@ -20,7 +20,7 @@ def signup(request):
         Ph_No = request.POST.get('Phone')
         
         print("POST data:", request.POST)
-        print("Parsed:", username, national_id, name, age, gender, email, Ph_No)
+        
 
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Email already exists.')
@@ -114,7 +114,7 @@ def mri_analysis(request):
             return redirect('mri_analysis')
 
         try:
-            user = User.objects.get(national_id=national_id, role='patient')
+            user = User.objects.get(national_id=national_id)
             patient = Patient.objects.get(user=user)
             
             mri = MRI_Image.objects.create(
@@ -126,7 +126,7 @@ def mri_analysis(request):
             messages.success(request, "MRI uploaded successfully.")
             return redirect('Doctor_dashboard')
         except User.DoesNotExist:
-            messages.error(request, "No patient found with this National ID.")
+            messages.error(request, "No User found with this National ID.")
             return redirect('mri_analysis')
         except Patient.DoesNotExist:
             messages.error(request, "This user is not registered as a patient.")
