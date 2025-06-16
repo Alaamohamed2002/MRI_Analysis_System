@@ -41,21 +41,6 @@ Visit the app at: http://127.0.0.1:8000
 
 
 
-## ߓ Project Structure (Simplified)
-BrainProject/
-├── Brainapp/
-│   ├── models.py
-│   ├── views.py
-│   └── static/
-├── templates/
-├── media/
-├── manage.py
-├── db.sqlite3
-└── README.md
-
-## ߑ‍ߒ Author
-Made with Alaa Mohamed
-
 ## ߓ Resources
 - https://docs.djangoproject.com/en/5.1/
 
