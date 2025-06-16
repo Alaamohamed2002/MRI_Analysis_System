@@ -45,6 +45,13 @@
             </div>
 
             <div class="content-card">
+                {% if messages %}
+                <div class="mt-3">
+                    {% for message in messages %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
                 <form id="signupForm" class="signup-form" method="POST">
                     {% csrf_token %}
                     <div class="form-group">

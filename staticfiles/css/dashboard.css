@@ -331,15 +331,20 @@
 
 .search-input-group {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;  /* Stack vertically */
+    gap: 1rem;               /* Space between input and button */
+    margin-bottom: 1rem;
 }
 
 .search-input-group input {
     flex: 1;
+    font-size: 1.2rem;       /* Make input text larger */
+    padding: 1rem; 
 }
 
 .search-input-group .btn-primary {
     white-space: nowrap;
+    width: 100%;
 }
 
 /* Patient Data */

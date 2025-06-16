@@ -1,5 +1,6 @@
 from django.shortcuts import render ,redirect
 from .models import User,Patient ,ContactUs,MRI_Image
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login ,logout
 from django.contrib import messages
 from django.db import transaction
@@ -89,13 +90,15 @@ def logoutpage(request):
 
 
 def admin_dashboard(request):
-    return render(request , 'Brainapp/receptionist-home.html')
+    return render(request , 'Brainapp/receptionist-home.html',{'staff_name': request.user.name})
 
 
 def doctor_dashboard(request):
-    return render(request , 'Brainapp/doctor-home.html')
+    if not request.user.is_authenticated:
+        return redirect('login')
+    return render(request , 'Brainapp/doctor-home.html',{'staff_name': request.user.name})
 
-
+@login_required(login_url='login/')
 def mri_analysis(request):
     if request.method == 'POST':
         doctor = request.user.doctor  
@@ -130,22 +133,30 @@ def mri_analysis(request):
     context={'patients':patients}
     return render (request ,'Brainapp/mri-analysis.html',context )
 
+@login_required(login_url='login/')
 def patient_data(request):
     
     patients = Patient.objects.all()
     selected_patient = None
 
     if request.method == 'POST':
-        patient_id = request.POST.get('patient_id')
-        if patient_id:
+        national_id = request.POST.get('national_id')
+        if national_id:
             try:
-                selected_patient = Patient.objects.get(id=patient_id)
+                user = User.objects.get(national_id=national_id, role='patient')
+                selected_patient = Patient.objects.get(user=user)
+            except User.DoesNotExist:
+                messages.error(request, "No patient with this National ID.")
             except Patient.DoesNotExist:
-                selected_patient = None
-    context ={'patients':patients,'selected_patient':selected_patient}
+                messages.error(request, "This user is not registered as a patient.")
 
+    context = {
+        'patients': patients,
+        'selected_patient': selected_patient
+    }
     return render(request, 'Brainapp/patient-data.html',context)
 
+@login_required(login_url='login/')
 def contact_dev(request):
     if request.method=='POST':
         id=request.POST.get('staffId')
@@ -156,7 +167,7 @@ def contact_dev(request):
         print(request.POST)
         
         try:
-            user = User.objects.get(id=id)
+            user = User.objects.get(national_id=id)
         except User.DoesNotExist:
             user = None
 

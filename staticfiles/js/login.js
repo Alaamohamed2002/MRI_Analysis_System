@@ -31,48 +31,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //     loginForm.addEventListener('submit', (e) => {
-    //         e.preventDefault();
+        loginForm.addEventListener('submit', (e) => {
+            // e.preventDefault();
         
-    //         const staffId = staffIdInput.value.trim();
-    //         const staffName = staffNameInput.value.trim();
+            // const staffId = staffIdInput.value.trim();
+            // const staffName = staffNameInput.value.trim();
         
-    //         // Validate staff ID format
-    //         // if (!staffId.match(/^[DR]\d{3}$/)) {
-    //         //     showError('Please enter a valid staff ID (e.g., D001 or R001)');
-    //         //     return;
-    //         // }
+            // Validate staff ID format
+            // if (!staffId.match(/^[DR]\d{3}$/)) {
+            //     showError('Please enter a valid staff ID (e.g., D001 or R001)');
+            //     return;
+            // }
         
-    //         // Store user info in sessionStorage
-    //         // sessionStorage.setItem('staffId', staffId);
-    //         // sessionStorage.setItem('staffName', staffName);
-        
-    //         // // Redirect based on staff ID prefix
-    //         // if (staffId.startsWith('D')) {
-    //         //     window.location.href = 'doctor-home.html';
-    //         // } else if (staffId.startsWith('R')) {
-    //         //     window.location.href = 'receptionist-home.html';
-    //         // }
-    //     });
+            // Store user info in sessionStorage
+            sessionStorage.setItem('staffId', staffId);
+            sessionStorage.setItem('staffName', staffName);
+            sessionStorage.setItem('role', role);
+
+    // Redirect based on role
+    if (role === 'doctor') {
+        window.location.href = '/doctor_dashboard/';
+    } else if (role === 'admin') {
+        window.location.href = '/admin_dashboard/';
+    }
+        });
     
-    //     function showError(message) {
-    //         const errorDiv = document.createElement('div');
-    //         errorDiv.className = 'error-message';
-    //         errorDiv.textContent = message;
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
         
-    //         // Remove any existing error message
-    //         const existingError = document.querySelector('.error-message');
-    //         if (existingError) {
-    //             existingError.remove();
-    //         }
+            // Remove any existing error message
+            const existingError = document.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
         
-    //         // Add new error message
-    //         loginForm.insertBefore(errorDiv, loginForm.firstChild);
+            // Add new error message
+            loginForm.insertBefore(errorDiv, loginForm.firstChild);
         
-    //         // Remove error message after 3 seconds
-    //         setTimeout(() => {
-    //             errorDiv.remove();
-    //         }, 3000);
-    //     }
-    // }); 
-})
+            // Remove error message after 3 seconds
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 3000);
+        }
+    }); 
