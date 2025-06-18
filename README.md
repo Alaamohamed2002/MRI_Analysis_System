@@ -46,7 +46,6 @@ Visit the app at: http://127.0.0.1:8000
 
 ## ✅ Final Notes
 - Always activate the environment before running the server.
-- Use `python manage.py` commands inside the `BrainProject` folder.
 - Admin login: http://127.0.0.1:8000/admin
 
 Happy Coding! ߚ
