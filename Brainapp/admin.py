@@ -62,6 +62,12 @@ class doctor(admin.ModelAdmin):
     def get_name(self, obj):
         return obj.user.name
     get_name.short_description = 'Doctor Name'
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "user":
+            kwargs["queryset"] = User.objects.filter(role='doctor')
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
     
 @admin.register(Patient)
 class patient(admin.ModelAdmin):
@@ -72,6 +78,12 @@ class patient(admin.ModelAdmin):
     def get_name(self, obj):
         return obj.user.name
     get_name.short_description = 'Patient Name'
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "user":
+            kwargs["queryset"] = User.objects.filter(role='patient')
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
     
 @admin.register(MRI_Image)
 class mri_image(admin.ModelAdmin):

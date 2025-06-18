@@ -23,11 +23,14 @@ def signup(request):
         
 
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email already exists.')
+            messages.error(request, 'Email already exists.',extra_tags='signup')
+            return redirect('signup')
+        if User.objects.filter(Ph_No=Ph_No).exists():
+            messages.error(request, 'Phone Number already exists.',extra_tags='signup')
             return redirect('signup')
         
         if User.objects.filter(national_id=national_id).exists():
-            messages.error(request, 'National ID already exists.')
+            messages.error(request, 'National ID already exists.',extra_tags='signup')
             return redirect('signup')
         
         try:
@@ -50,12 +53,12 @@ def signup(request):
                 )
                 print("Patient created:", patient)
 
-                messages.success(request, 'Patient registered successfully.')
+                messages.success(request, 'Patient registered successfully.',extra_tags='signup')
                 return redirect('Admin_dashboard')
 
         except Exception as e:
             print("Error during signup:", str(e))
-            messages.error(request, f'An error occurred: {str(e)}')
+            messages.error(request, f'An error occurred: {str(e)}',extra_tags='signup')
             return redirect('signup')
 
     return render(request, 'Brainapp/signup-patient.html')
@@ -79,11 +82,11 @@ def loginpage(request):
             if user.role=='doctor':
                 return redirect('Doctor_dashboard')
             else:
-                messages.error(request, 'Invalid role. Please contact support.')
+                messages.error(request, 'Invalid role. Please contact support.',extra_tags='login')
                 print("Invalid role detected")  
                 return redirect('login')
         except User.DoesNotExist:
-            messages.error(request, 'Invalid name or national ID.')
+            messages.error(request, 'Invalid name or national ID.',extra_tags='login')
             return redirect('login')
     return render(request, 'Brainapp/index.html')
 
@@ -98,8 +101,6 @@ def admin_dashboard(request):
 
 
 def doctor_dashboard(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
     return render(request , 'Brainapp/doctor-home.html',{'staff_name': request.user.name})
 
 @login_required(login_url='login/')
@@ -110,7 +111,7 @@ def mri_analysis(request):
         image = request.FILES.get('mriImage')
 
         if not national_id or not image:
-            messages.error(request, "All fields are required.")
+            messages.error(request, "All fields are required.",extra_tags='mri')
             return redirect('mri_analysis')
 
         try:
@@ -123,13 +124,13 @@ def mri_analysis(request):
                 image=image
             )
             mri.save()
-            messages.success(request, "MRI uploaded successfully.")
+            messages.success(request, "MRI uploaded successfully.",extra_tags='mri')
             return redirect('Doctor_dashboard')
         except User.DoesNotExist:
-            messages.error(request, "No User found with this National ID.")
+            messages.error(request, "No User found with this National ID.",extra_tags='mri')
             return redirect('mri_analysis')
         except Patient.DoesNotExist:
-            messages.error(request, "This user is not registered as a patient.")
+            messages.error(request, "This user is not registered as a patient.",extra_tags='mri')
             return redirect('mri_analysis')
 
     
@@ -150,9 +151,9 @@ def patient_data(request):
                 user = User.objects.get(national_id=national_id)
                 selected_patient = Patient.objects.get(user=user)
             except User.DoesNotExist:
-                messages.error(request, "No user with this National ID.")
+                messages.error(request, "No user with this National ID.",extra_tags='patient')
             except Patient.DoesNotExist:
-                messages.error(request, "This user is not registered as a patient.")
+                messages.error(request, "This user is not registered as a patient.",extra_tags='patient')
 
     context = {
         'patients': patients,
