@@ -54,7 +54,7 @@ def signup(request):
                 print("Patient created:", patient)
 
                 messages.success(request, 'Patient registered successfully.',extra_tags='signup')
-                return redirect('Admin_dashboard')
+                return redirect('signup')
 
         except Exception as e:
             print("Error during signup:", str(e))
@@ -125,7 +125,8 @@ def mri_analysis(request):
             )
             mri.save()
             messages.success(request, "MRI uploaded successfully.",extra_tags='mri')
-            return redirect('Doctor_dashboard')
+            return redirect('mri_analysis')
+            
         except User.DoesNotExist:
             messages.error(request, "No User found with this National ID.",extra_tags='mri')
             return redirect('mri_analysis')
