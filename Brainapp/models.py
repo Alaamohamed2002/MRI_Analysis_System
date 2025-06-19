@@ -105,7 +105,7 @@ class ContactUs(models.Model):
     issue_type = [
         ("Bug Report", _("Bug Report")),
         ("Feature Request", _("Feature Request")),
-        ("System Improvment", _("System Improvement")),
+        ("System Improvement", _("System Improvement")),
         ("Other", _("Other")),
     ]
     priority_level = [
