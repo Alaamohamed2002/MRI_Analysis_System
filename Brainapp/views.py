@@ -8,7 +8,7 @@ from django.db import transaction
 
 # Create your views here.
 
-
+@login_required(login_url='login/')
 def signup(request):
     if request.method == 'POST':
         username = request.POST.get('UserName')
