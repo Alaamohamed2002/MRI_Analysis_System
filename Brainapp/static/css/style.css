@@ -359,3 +359,31 @@ input[type="number"] {
 [data-theme="dark"] .login-theme-toggle input[type="checkbox"]:not(:checked) + label .fa-moon {
     color: #95a5a6; /* Grey for light mode moon icon in dark theme */
 } 
+.report-card {
+    border: none;
+    border-radius: 12px;
+    background: #f9f9f9;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.report-scroll {
+    height: 200px;
+    overflow-y: auto;
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    color: #212529;
+}
+
+.report-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.report-scroll::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}

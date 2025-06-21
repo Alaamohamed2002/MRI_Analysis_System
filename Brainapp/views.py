@@ -1,16 +1,25 @@
 from django.shortcuts import render, redirect
-from .models import User, Patient, ContactUs, MRI_Image
+from django.http import HttpResponseForbidden
+from .models import User, Patient, ContactUs, MRI_Image,Result
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.db import transaction
 from django.utils.translation import gettext as _
+from django.views.decorators.csrf import requires_csrf_token
 
 
 # Create your views here.
-
+@requires_csrf_token
+def custom_csrf_failure(request, reason=""):
+    # Optional: add a message to show on login page
+    from django.contrib import messages
+    messages.error(request, "You are not authenticated or your session expired.", extra_tags='csrf')
+    return redirect('login')
 
 def signup(request):
+    if request.user.role !='admin':
+        return redirect('login')
     if request.method == "POST":
         username = request.POST.get("UserName")
         national_id = request.POST.get("National_id")
@@ -68,7 +77,7 @@ def signup(request):
                 extra_tags="signup",
             )
             return redirect("signup")
-
+    
     return render(request, "Brainapp/signup-patient.html")
 
 
@@ -108,12 +117,16 @@ def logoutpage(request):
 
 
 def admin_dashboard(request):
+    if request.user.role != 'admin':
+        return redirect('login')
     return render(
         request, "Brainapp/receptionist-home.html", {"staff_name": request.user.name}
     )
 
 
 def doctor_dashboard(request):
+    if request.user.role != 'doctor':
+        return redirect('login')
     return render(
         request, "Brainapp/doctor-home.html", {"staff_name": request.user.name}
     )
@@ -121,6 +134,9 @@ def doctor_dashboard(request):
 
 @login_required(login_url="login/")
 def mri_analysis(request):
+    if request.user.role !='doctor':
+        return redirect('login')
+    
     if request.method == "POST":
         doctor = request.user.doctor
         national_id = request.POST.get("national_id")
@@ -153,12 +169,16 @@ def mri_analysis(request):
 
     patients = Patient.objects.all()
     context = {"patients": patients}
+    
     return render(request, "Brainapp/mri-analysis.html", context)
 
 
 @login_required(login_url="login/")
 def patient_data(request):
-
+    
+    if request .user.role not in['admin','doctor']:
+        return redirect('login')
+    
     patients = Patient.objects.all()
     selected_patient = None
 
@@ -168,6 +188,7 @@ def patient_data(request):
             try:
                 user = User.objects.get(national_id=national_id)
                 selected_patient = Patient.objects.get(user=user)
+                results = Result.objects.filter(patient=selected_patient).order_by('-date')
             except User.DoesNotExist:
                 messages.error(
                     request, _("No user with this National ID."), extra_tags="patient"
@@ -179,12 +200,18 @@ def patient_data(request):
                     extra_tags="patient",
                 )
 
-    context = {"patients": patients, "selected_patient": selected_patient}
+    context = {
+        "patients": patients, 
+        "selected_patient": selected_patient,
+        'results': results if selected_patient else []
+        }
     return render(request, "Brainapp/patient-data.html", context)
 
 
 @login_required(login_url="login/")
 def contact_dev(request):
+    if request .user.role not in['admin','doctor']:
+        return redirect('login')
     if request.method == "POST":
         id = request.POST.get("staffId")
         issue_type = request.POST.get("issueType")

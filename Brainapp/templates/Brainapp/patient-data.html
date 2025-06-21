@@ -112,11 +112,22 @@
 
                 <div class="medical-reports">
                     <h3>{% trans "Medical Reports" %}</h3>
-                    <div id="reportsList" class="reports-list">
-                        <!-- Reports will be dynamically added here -->
+                    <div id="reportsList" class="d-flex flex-column align-items-center gap-4">
+                        {% if results %}
+                            {% for res in results %}
+                                <div class="card report-card shadow-sm w-100" style="max-width: 700px;">
+                                    <div class="card-body">
+                                        <div class="report-scroll">
+                                            {{ res.report|linebreaksbr }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info">No reports available for this patient.</div>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
 
             <div id="noData" class="no-data" style="display: none;">
                 <i class="fas fa-search"></i>
